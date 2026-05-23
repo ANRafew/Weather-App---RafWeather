@@ -12,14 +12,12 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-center bg-[url('/mainbg2.png')]">
-      
-      {lat === null || lon === null ? (
-        <LocationButton onLocationFetched={handleLocationFetched} />
-      ) : (
-        <WeatherTest lat={lat} lon={lon} />
-      )}
-
+    <div className="relative min-h-screen bg-cover bg-center bg-[url('/mainbg1.jpg')] bg-black/40 bg-blend-overlay">
+        {lat === null || lon === null ? (
+          <LocationButton onLocationFetched={handleLocationFetched} />
+        ) : (
+          <WeatherTest lat={lat} lon={lon} />
+        )}
     </div>
   );
 }
