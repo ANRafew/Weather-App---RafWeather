@@ -3,15 +3,19 @@ import { Line } from "react-chartjs-2";
 import "./ChartSetup";
 import { useEffect, useState } from "react";
 
-function WeatherTest({ lat, lon }) {
+function WeatherTestCity({ name }) {
+    if (!name.trim()) {
+    return <p style={{ color: "red" }}>Error: Input cannot be empty.</p>;
+  }
+  
     const [Weather, setWeather] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         
-        if (lat !== null && lon !== null ){
+        if (name !== null){
             const apiKey = import.meta.env.VITE_API_KEY; //use your api key from Openweather by creating your account
-            const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+            const url =`https://api.openweathermap.org/data/2.5/forecast?q=${name}&APPID=${apiKey}&units=metric`
             fetch(url)
             .then((res) => {
                 if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
@@ -20,9 +24,10 @@ function WeatherTest({ lat, lon }) {
             .then((data) => setWeather(data))
             .catch((err) => setError(err.message));
         }
-    }, [lat, lon]);
-    
-    if (error) return <p className="flex col justify-center py-50">❌ API call failed: {error}</p>;
+    }, [name]);
+
+
+    if (error) return <p className="flex col justify-center py-50">❌ failed: Location Not Found</p>;
     if (!Weather) return <p className="flex col justify-center py-50">Loading....</p>;
 
     const date = new Date();
@@ -62,7 +67,7 @@ function WeatherTest({ lat, lon }) {
         },
         scales: {
             x: {
-                ticks: { color: "white" },  
+                ticks: { color: "white" }, 
                 font: {
                     size: 14,
                 }
@@ -79,14 +84,15 @@ function WeatherTest({ lat, lon }) {
         window.location.reload(); 
     };
 
-  return (
+
+    return(
     <div className="grid grid-cols-1 md:grid-cols-2 gap-1 py-20 mx-10">
-        <div className="text-center pb-5">
+        <div className="text-center">
             <h1 className="text-4xl font-bold py-3">Today's Weather</h1>
             <p className="text-xl font-serif"> <i className="fa-solid fa-location-dot text-blue-500"></i>  {Weather.city.name}, {Weather.city.country}</p>
             <p className="text-xl font-serif">
                 <i className="fa-regular fa-calendar-days text-blue-500"></i>  {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()} </p>
-            <div className="pt-10 pb-5">
+            <div className="py-10">
                 <div className="text-7xl font-bold">
                     <p className="text-blue-500 font-mono"><i className="fa-solid fa-temperature-empty text-5xl"></i>{Weather.list[0].main.temp}° </p>
                 </div>
@@ -147,8 +153,6 @@ function WeatherTest({ lat, lon }) {
 
         </div>
     </div>
-
-  );
+    );
 }
-
-export default WeatherTest;
+export default WeatherTestCity;

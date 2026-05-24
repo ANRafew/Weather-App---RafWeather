@@ -16,7 +16,7 @@ function LocationButton({ onLocationFetched }) {
             onLocationFetched(lat, lon);
           }
         },
-        () => alert("Unable to retrieve location.")
+        () => alert("Unable to retrieve location. Please Turn ON your Device Location")
       );
     } else {
       alert("Geolocation not supported by your browser.");
@@ -24,14 +24,14 @@ function LocationButton({ onLocationFetched }) {
   };
 
   return (
-    <div className="flex items-center justify-center py-60">
-      <div className="p-1">
-        <p className="text-center text-xl font-bold">Please Turn On Your Location</p>
+    <div className="pt-5">
+      <p className="text-center text-4xl font-bold">Check Weather</p>
+      <div className="pt-45 flex items-center justify-center">
         <button
           onClick={autoLocate}
-          className="px-8 py-4 bg-blue-600/50 text-white border-double border-4 rounded-3xl hover:bg-blue-700 text-4xl font-bold"
+          className="px-8 py-4 bg-blue-600/50 text-white border-double border-4 rounded-4xl hover:bg-blue-700 text-3xl font-bold"
         >
-          Check Weather
+          Use Device Location
         </button>
       </div>
     </div>
