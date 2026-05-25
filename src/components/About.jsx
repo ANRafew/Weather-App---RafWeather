@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 function About(){
     const [isOpen, setIsOpen] = useState(false);
     return(
-        <div className="text-center">
+        <div className="absolute place-self-center bottom-0">
             <button 
                 onClick={() => setIsOpen(true)} 
-                className=" text-white hover:text-blue-500 underline"
+                className=" text-white hover:text-blue-500 underline "
             >
                 About
             </button>

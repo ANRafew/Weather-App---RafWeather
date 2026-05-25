@@ -4,10 +4,7 @@ import "./ChartSetup";
 import { useEffect, useState } from "react";
 
 function WeatherTestCity({ name }) {
-    if (!name.trim()) {
-    return <p style={{ color: "red" }}>Error: Input cannot be empty.</p>;
-  }
-  
+    
     const [Weather, setWeather] = useState(null);
     const [error, setError] = useState(null);
 
@@ -27,7 +24,19 @@ function WeatherTestCity({ name }) {
     }, [name]);
 
 
-    if (error) return <p className="flex col justify-center py-50">❌ failed: Location Not Found</p>;
+    if (error) return (
+        <div className="text-center pt-70">
+        <p className="text-white text-2xl md:text-4xl font-semibold mb-19">
+            ❌ Failed: Location Not Found
+        </p>
+        <button
+            onClick={() => window.location.reload()}
+            className="text-cyan-300 rounded hover:text-blue-500"
+        >
+            <i className="fa-solid fa-arrows-rotate text-7xl"></i>
+        </button>
+        </div>
+    );
     if (!Weather) return <p className="flex col justify-center py-50">Loading....</p>;
 
     const date = new Date();
@@ -80,13 +89,16 @@ function WeatherTestCity({ name }) {
             },
         },
     };
+
+    const forecast = (Weather.list[1].main.temp_max + Weather.list[2].main.temp_max + Weather.list[3].main.temp_max + Weather.list[4].main.temp_max + Weather.list[5].main.temp_max) / 5;
+
     const handleRefresh = () => {
         window.location.reload(); 
     };
 
 
     return(
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-1 py-20 mx-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-1 py-15 mx-10">
         <div className="text-center">
             <h1 className="text-4xl font-bold py-3">Today's Weather</h1>
             <p className="text-xl font-serif"> <i className="fa-solid fa-location-dot text-blue-500"></i>  {Weather.city.name}, {Weather.city.country}</p>
@@ -109,11 +121,20 @@ function WeatherTestCity({ name }) {
                 >
                 <i className="fa-solid fa-arrows-rotate text-4xl"></i>
             </button>
+            <p className="p-7 italic text-gray-300">
+                <i className="fa-solid fa-triangle-exclamation pr-6"></i>
+                Data is updated in every 3 hours. Some data may not be accurate.
+            </p>
         </div>
 
-
         <div className="">
-            {/* <h1 className="text-4xl font-bold py-3 text-center">Forecast</h1> */}
+            <div className="text-center text-3xl font-bold">
+                <p className={forecast >= Weather.list[0].main.temp ? "text-red-500" : "text-blue-500" }>
+                    {
+                        forecast >= Weather.list[0].main.temp ? "Warming Over Next Five Days" : "Cooling Over Next Five Days"
+                    }
+                </p>
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3 py-4">
                 <div className="bg-black/50 text-center rounded-xl p-5">
                     <p className="bg-sky-900 rounded-2xl text-xl font-semibold "><i className="fa-regular fa-calendar-days text-white"></i> {day1.getDate()}/{day1.getMonth()+1}</p>
