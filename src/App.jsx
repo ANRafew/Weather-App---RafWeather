@@ -19,7 +19,7 @@ function App() {
 
 
   return (
-    <div className="relative min-h-screen bg-cover bg-center bg-[url('/mainbg1.jpg')] bg-black/40 bg-blend-overlay">
+    <div className="relative min-h-screen bg-cover bg-center bg-[url('/mainbg2.jpg')] md:bg-[url('/mainbg1.jpg')] bg-black/40 bg-blend-overlay">
         {!submittedValue && (lat === null || lon === null) && (
           <LocationButton onLocationFetched={handleLocationFetched} />
         )}

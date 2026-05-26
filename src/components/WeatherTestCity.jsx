@@ -105,8 +105,8 @@ function WeatherTestCity({ name }) {
             <p className="text-xl font-serif">
                 <i className="fa-regular fa-calendar-days text-blue-500"></i>  {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()} </p>
             <div className="py-10">
-                <div className="text-7xl font-bold">
-                    <p className="text-blue-500 font-mono"><i className="fa-solid fa-temperature-empty text-5xl"></i>{Weather.list[0].main.temp}° </p>
+                <div className="text-6xl md:text-7xl font-bold">
+                    <p className="text-white md:text-blue-500 font-mono"><i className="text-blue-500 fa-solid fa-temperature-empty"></i>{Weather.list[0].main.temp}° </p>
                 </div>
                 <div className="text-2xl font-serif py-2">
                     <p>{Weather.list[0].weather[0].description}</p>
